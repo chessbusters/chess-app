@@ -64,3 +64,8 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end
+
+# Rake for possible Travis CI use.
+group :test do
+  gem 'rake'
+end
