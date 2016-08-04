@@ -77,4 +77,8 @@ Chessbuster::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # Adding default URL for Devise mailer.
+  config.action_mailer.default_url_options = { host: 'chessbuster.herokuapp.com' }
+
 end

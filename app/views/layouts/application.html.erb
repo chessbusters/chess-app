@@ -8,6 +8,21 @@
 </head>
 <body>
 
+<% if notice.present? %>
+  <p class="alert alert-info"><%= notice %></p>
+<% end %>
+
+<% if alert.present? %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
+<% if current_user %>
+  <%= link_to 'Sign Out', destroy_user_session_path, action: :delete %>
+<% else %>
+  <%= link_to 'Sign In', new_user_session_path %>
+  <%= link_to 'Register', new_user_registration_path %>
+<% end %>
+
 <%= yield %>
 
 </body>
