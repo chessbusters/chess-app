@@ -13,7 +13,7 @@ gem 'rails', '4.0.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
-# Use 12_factor for Heroku 
+# Use 12_factor for Heroku
 gem 'rails_12factor', group: :production
 
 # Use SCSS for stylesheets
@@ -36,6 +36,9 @@ gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+
+# Add rubocop - static code analyzer
+gem 'rubocop', '~> 0.42.0', require: false 
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
