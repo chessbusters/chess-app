@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Adding Simple Form for game creation
+gem 'simple_form'
+
 # Integrating Bootstrap and necessary components.
 gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sprockets', '2.11.0'
