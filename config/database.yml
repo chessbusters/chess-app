@@ -47,7 +47,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: chessbuster_test
+  database: travis_ci_test
   pool: 5
   username: postgres
   password: password
@@ -57,7 +57,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: travis_ci_test
+  database: chessbuster_production
   pool: 5
   username: postgres
   password: password
