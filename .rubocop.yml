@@ -4,3 +4,4 @@ AllCops:
     - 'config/**/*'
     - 'Rakefile'
     - 'spec/spec_helper.rb'
+    - 'vendor/**/*'
