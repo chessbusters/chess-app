@@ -59,3 +59,13 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# Using rspec for dev testing
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+end
+
+# Rake for possible Travis CI use.
+group :test do
+  gem 'rake'
+end
