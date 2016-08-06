@@ -1,7 +1,6 @@
+# Controller for app CRUD logic
 class GamesController < ApplicationController
-
   def index
-
   end
 
   def new
@@ -26,5 +25,4 @@ class GamesController < ApplicationController
   def game_params
     params.require(:game).permit(:name)
   end
-
 end

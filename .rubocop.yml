@@ -1,0 +1,7 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'Rakefile'
+    - 'spec/spec_helper.rb'
+    - 'vendor/**/*'

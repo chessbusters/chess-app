@@ -80,5 +80,4 @@ Chessbuster::Application.configure do
 
   # Adding default URL for Devise mailer.
   config.action_mailer.default_url_options = { host: 'chessbuster.herokuapp.com' }
-
 end
