@@ -41,7 +41,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 # Add rubocop - static code analyzer
-gem 'rubocop', '~> 0.42.0', require: false 
+gem 'rubocop', '~> 0.42.0', require: false
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

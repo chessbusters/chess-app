@@ -29,5 +29,5 @@ Chessbuster::Application.configure do
 
   # Adding default URL for Devise mailer.
   config.action_mailer.default_url_options = { host: 'localhost', port: 3030 }
-  
+
 end
