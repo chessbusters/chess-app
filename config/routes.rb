@@ -6,6 +6,7 @@ Chessbuster::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'games#index'
 
+  resources :tos, only: [:show]
   resources :games
 
   # Example of regular route:
