@@ -1,5 +1,12 @@
 source 'https://rubygems.org'
 
+
+#Added Figaro to hide keys 
+gem "figaro"
+
+#Adding Facebook authentification
+gem 'omniauth-facebook', '~> 1.4.1'
+
 # Adding Simple Form for game creation
 gem 'simple_form'
 
