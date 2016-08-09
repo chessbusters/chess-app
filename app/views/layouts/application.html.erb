@@ -7,7 +7,6 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
 <% if notice.present? %>
   <p class="alert alert-info"><%= notice %></p>
 <% end %>
@@ -17,10 +16,12 @@
 <% end %>
 
 <% if current_user %>
-  <%= link_to 'Sign Out', destroy_user_session_path, action: :delete %>
+<%= link_to "Signout", destroy_user_session_path, method: :delete %>
 <% else %>
   <%= link_to 'Sign In', new_user_session_path %>
   <%= link_to 'Register', new_user_registration_path %>
+  <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+
 <% end %>
 
 <%= yield %>
