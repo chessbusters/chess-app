@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem "figaro"
 
 #Adding Facebook authentification
+gem 'omniauth'
 gem 'omniauth-facebook', '~> 1.4.1'
 
 # Adding Simple Form for game creation

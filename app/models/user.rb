@@ -9,12 +9,11 @@ class User < ActiveRecord::Base
   has_many :white_games, class_name: 'Game', foreign_key: 'white_user_id'
   has_many :black_games, class_name: 'Game', foreign_key: 'black_user_id'
 
+
 def self.from_omniauth(auth)
   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-    user.provider = auth.provider
-    user.uid = auth.uid
-    user.email = auth.info.email
-    user.password = Devise.friendly_token[0,20]
+    user.email = auth.info.email 
+    user.password = Devise.friendly_token[0,20] 
   end
 end
 
