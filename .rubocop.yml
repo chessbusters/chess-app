@@ -5,3 +5,6 @@ AllCops:
     - 'Rakefile'
     - 'spec/spec_helper.rb'
     - 'vendor/**/*'
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
