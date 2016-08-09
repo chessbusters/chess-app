@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Added Figaro to hide keys
 gem 'figaro'
 

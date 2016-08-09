@@ -1,3 +1,3 @@
-#Helper Term of services
+# Helper Term of services
 module TosHelper
 end
