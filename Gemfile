@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
 
-#Added Figaro to hide keys 
-gem "figaro"
+# Added Figaro to hide keys
+gem 'figaro'
 
-#Adding Facebook authentification
+# Adding Facebook authentification
 gem 'omniauth'
 gem 'omniauth-facebook', '~> 1.4.1'
 
