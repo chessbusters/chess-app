@@ -1,6 +1,7 @@
 # Controller for pieces logic
 class PiecesController < ApplicationController
   def index
+    @piece = Piece.all
   end
 
   def show
