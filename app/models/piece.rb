@@ -3,12 +3,12 @@ class Piece < ActiveRecord::Base
   belongs_to :game
   self.inheritance_column = :type
 
-scope :kings, -> { where(type: 'King') } 
-scope :queens, -> { where(type: 'Queen') } 
-scope :bishops, -> { where(type: 'Bishop') }
-scope :rooks, -> { where(type: 'Rook') } 
-scope :knights, -> { where(type: 'Knight') } 
-scope :pawns, -> { where(type: 'Pawn') }
+  scope :kings, -> { where(type: 'King') }
+  scope :queens, -> { where(type: 'Queen') }
+  scope :bishops, -> { where(type: 'Bishop') }
+  scope :rooks, -> { where(type: 'Rook') }
+  scope :knights, -> { where(type: 'Knight') }
+  scope :pawns, -> { where(type: 'Pawn') }
 
   def self.types
     %w(Queen King Bishop Rook Knight Pawn)
