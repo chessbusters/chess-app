@@ -8,7 +8,13 @@ Chessbuster::Application.routes.draw do
 
   resources :tos, only: [:show]
   resources :games
-
+  resources :pieces
+  resources :bishops, controller: 'pieces', type: 'Bishop'
+  resources :kings, controller: 'pieces', type: 'King'
+  resources :queens, controller: 'pieces', type: 'Queen'
+  resources :pawns, controller: 'pieces', type: 'Pawn'
+  resources :rooks, controller: 'pieces', type: 'Rook'
+  resources :knights, controller: 'pieces', type: 'Knight'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
