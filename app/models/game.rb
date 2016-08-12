@@ -62,7 +62,7 @@ class Game < ActiveRecord::Base
     (0..7).each do |x|
       Pawn.create(
         game: self,
-        color: 'white',
+        color: 'black',
         x_coordinate: x,
         y_coordinate: 6
       )
