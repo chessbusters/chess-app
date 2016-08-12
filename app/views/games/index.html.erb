@@ -1,1 +1,9 @@
 <h1> Who you gonna call ? </h1>
+<% @game.each do |game| %>
+    <h2 class="text-center">
+       <% if game.white_user_id %>
+        <%= link_to "Game #{game.id}", game_path(game) %>
+       <b> Waiting for an opponent </b>
+        <% end %>
+    </h2>
+<% end %>
