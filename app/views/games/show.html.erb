@@ -1,3 +1,13 @@
 <h1> Here's your game </h1>
 <br />
 <h2><%= @game.name %></h2>
+
+<table>
+  <% 8.times do |row| %>
+    <tr>
+      <% 8.times do |col| %>
+      <td></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
