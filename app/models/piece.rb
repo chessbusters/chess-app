@@ -19,59 +19,80 @@ class Piece < ActiveRecord::Base
     self.y_coordinate = y_coordinate
   end
 
+  # Checks whether or not a piece is obstructed from reaching a location by
+  # another piece. Returns an error if a piece attempts to move irregularly.
   def obstructed?(future_x, future_y)
+    return 'Invalid: not horizontal/vert/diag.' if invalid?(future_x, future_y)
+    x_diff, y_diff = find_diffs(future_x, future_y)
+    if direction?(future_x, future_y) == 'diag'
+      check_diagonal(future_x, x_diff)
+    elsif direction?(future_x, future_y) == 'horiz'
+      check_horizontal(future_x, x_diff)
+    elsif direction?(future_x, future_y) == 'vert'
+      check_vertical(future_y, y_diff)
+    else false
+    end
+  end
+
+  private
+
+  # Determines if a move is not horizontal, vertical, or properly diagonal.
+  def invalid?(future_x, future_y)
+    x_diff, y_diff = find_diffs(future_x, future_y)
+    return true if (x_diff != y_diff) && x_diff.nonzero? && y_diff.nonzero?
+    false
+  end
+
+  # Figures out what direction the piece is trying to move.
+  def direction?(future_x, future_y)
+    x_diff, y_diff = find_diffs(future_x, future_y)
+    return 'diag' if x_diff.nonzero? && y_diff.nonzero?
+    return 'horiz' if y_diff.zero?
+    return 'vert' if x_diff.zero?
+  end
+
+  # Finds out whether the index of the location where the piece is moving to is
+  # higher or lower, then sets the range that needs to be checked appropriately
+  def find_range(future_coord, current_coord, diff)
+    if diff > 0
+      (future_coord + 1...current_coord).to_a
+    else
+      (current_coord + 1...future_coord).to_a
+    end
+  end
+
+  def find_diffs(future_x, future_y)
     x_diff = x_coordinate - future_x
     y_diff = y_coordinate - future_y
-    return 'Invalid Input: Not diagonal, horizontal, or vertical.' if (x_diff != y_diff) && x_diff.nonzero? && y_diff.nonzero?
-    if x_diff.nonzero? && y_diff.nonzero?
-      return true if check_diagonal(future_x) == true
-    elsif y_diff.zero?
-      return true if check_horizontal(future_x) == true
-    else
-      return true if check_vertical(future_y) == true
-    end
-    return false
+    [x_diff, y_diff]
   end
 
   # Check for diagonal obstructions
-  def check_diagonal(future_x)
-    x_diff = x_coordinate - future_x
-    if x_diff > 0
-      (future_x + 1...x_coordinate).each do |d|
-        return true if game.pieces.where(x_coordinate: d, y_coordinate: d).exists?
-      end
-    else
-      (x_coordinate + 1...future_x).each do |d|
-        return true if game.pieces.where(x_coordinate: d, y_coordinate: d).exists?
-      end
+  def check_diagonal(future_x, x_diff)
+    range = find_range(future_x, x_coordinate, x_diff)
+    range.each do |d|
+      return true if game.pieces.where(x_coordinate: d, y_coordinate: d).exists?
     end
+    false
   end
 
   # Check for horizontal obstructions
-  def check_horizontal(future_x)
-    x_diff = x_coordinate - future_x
-    if x_diff > 0
-      (future_x + 1...x_coordinate).each do |x|
-        return true if game.pieces.where(x_coordinate: x, y_coordinate: y_coordinate).exists?
-      end
-    else
-      (x_coordinate + 1...future_x).each do |x|
-        return true if game.pieces.where(x_coordinate: x, y_coordinate: y_coordinate).exists?
-      end
+  def check_horizontal(future_x, x_diff)
+    range = find_range(future_x, x_coordinate, x_diff)
+    range.each do |x|
+      return true if \
+      game.pieces.where(x_coordinate: x, y_coordinate: y_coordinate).exists?
     end
+    false
   end
 
   # Check for vertical obstructions
-  def check_vertical(future_y)
-    y_diff = y_coordinate - future_y
-    if y_diff > 0
-      (future_y + 1...y_coordinate).each do |y|
-        return true if game.pieces.where(x_coordinate: x_coordinate, y_coordinate: y).exists?
-      end
-    else
-      (y_coordinate + 1...future_y).each do |y|
-        return true if game.pieces.where(x_coordinate: x_coordinate, y_coordinate: y).exists?
-      end
+  def check_vertical(future_y, y_diff)
+    range = find_range(future_y, y_coordinate, y_diff)
+    range.each do |y|
+      return true if \
+      game.pieces.where(x_coordinate: x_coordinate, y_coordinate: y).exists?
     end
+    false
   end
 end

@@ -8,7 +8,7 @@ describe Piece do
         y_coordinate: 3
       )
       expect(piece.obstructed?(1, 4)).to eq(
-        'Invalid Input: Not diagonal, horizontal, or vertical.'
+        'Invalid: not horizontal/vert/diag.'
       )
     end
 
