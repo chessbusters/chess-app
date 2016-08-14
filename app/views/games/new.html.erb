@@ -1,4 +1,5 @@
 <h1>Name your Game !</h1>
   <%= simple_form_for @game do |f| %>
     <%= f.input :name %>
+    <%= f.submit "Create", class: 'btn btn-success' %>
   <% end %>

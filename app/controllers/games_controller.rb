@@ -11,9 +11,11 @@ before_action :authenticate_user!
   end
 
   def create
-    @game = Game.create(:white_user_id => current_user[:id] )
+    @game = Game.create(game_params)
     if @game.valid?
-      redirect_to game_path(@game)
+      @game.update(white_user_id: current_user[:id])
+      redirect_to game_path(@game), 
+      alert: "Invite your friend ! link to your game: http://localhost:3030/games/#{@game}"
     else
       render :new, status: :unprocessable_entity
     end
@@ -22,16 +24,17 @@ before_action :authenticate_user!
   def show
      @game = Game.find(params[:id])
     if @game.white_user_id == current_user[:id]
-      redirect_to root_path, alert: "Need another oppenent than creator :O)"
+      flash[:notice] = "Welcome back :)"
       elsif @game.white_user_id != nil && @game.black_user_id == nil
-      @game.black_user_id = current_user[:id]
+      @game.update(black_user_id: current_user[:id])
+      # Generate the board and populate it with pieces 
     end
   end
 
   private
 
   def game_params
-    params.require(:game).permit(:white_user_id)
+    params.require(:game).permit(:name)
   end
 
   helper_method :current_game

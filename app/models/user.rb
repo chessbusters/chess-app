@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
-
+  
    has_many :white_games, class_name: 'Game', foreign_key: 'white_user_id'
    has_many :black_games, class_name: 'Game', foreign_key: 'black_user_id'
 
