@@ -15,13 +15,4 @@ class User < ActiveRecord::Base
       user.password = Devise.friendly_token[0, 20]
     end
   end
-
-  def self.new_with_session(params, session)
-    session_2 = session['devise.facebook_data']['extra']['raw_info']
-    super.tap do |user|
-      if data == session['devise.facebook_data'] && session_2
-        user.email = data['email'] if user.email.blank?
-      end
-    end
-  end
 end
