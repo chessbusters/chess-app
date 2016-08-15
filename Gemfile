@@ -68,8 +68,10 @@ end
 # gem 'debugger', group: [:development, :test]
 
 # Using rspec for dev testing
+# Adding FactoryGirl for dummy test data.
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails', '~>4.0'
 end
 
 # Rake for possible Travis CI use.
