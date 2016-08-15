@@ -1,6 +1,5 @@
 # Controller for app CRUD logic
 class GamesController < ApplicationController
-
   def index
     @game = Game.all
   end
