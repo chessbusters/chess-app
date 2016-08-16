@@ -11,9 +11,11 @@ table {
 }
 td {
     width: 85px; height: 85px;
+    text-align: center;
+    font-size: 45px;
 }
 
-tr:nth-child(odd) td:nth-child(even), 
+tr:nth-child(odd) td:nth-child(even),
 tr:nth-child(even) td:nth-child(odd) {
   background: black;
   color: white;
