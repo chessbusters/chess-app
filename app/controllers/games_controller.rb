@@ -45,7 +45,22 @@ class GamesController < ApplicationController
               when "Queen"
                 @pieces[row_index][col_index] = "\u2655"
             end
-          else
+          elsif piece.color == "black"
+              # @pieces[row_index][col_index] = piece.type
+            case piece.type
+              when "Pawn"
+                @pieces[row_index][col_index] = "\u265F"
+              when "Rook"
+                @pieces[row_index][col_index] = "\u265C"
+              when "Knight"
+                @pieces[row_index][col_index] = "\u265E"
+              when "Bishop"
+                @pieces[row_index][col_index] = "\u265D"
+              when "King"
+                @pieces[row_index][col_index] = "\u265A"
+              when "Queen"
+                @pieces[row_index][col_index] = "\u265B"
+            end
           end
         end
       end
