@@ -25,6 +25,46 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     user_select(@game)
+    @pieces = Array.new(8) { Array.new(8) }
+    8.times.with_index do |_row, row_index|
+      8.times.with_index do |_col, col_index|
+        piece = Piece.where(game: @game, x_coordinate: row_index,\
+                            y_coordinate: col_index).first
+        if piece
+          if piece.color == 'white'
+            case piece.type
+            when 'Pawn'
+              @pieces[row_index][col_index] = "\u2659"
+            when 'Rook'
+              @pieces[row_index][col_index] = "\u2656"
+            when 'Knight'
+              @pieces[row_index][col_index] = "\u2658"
+            when 'Bishop'
+              @pieces[row_index][col_index] = "\u2657"
+            when 'King'
+              @pieces[row_index][col_index] = "\u2654"
+            when 'Queen'
+              @pieces[row_index][col_index] = "\u2655"
+            end
+          else
+            case piece.type
+            when 'Pawn'
+              @pieces[row_index][col_index] = "\u265F"
+            when 'Rook'
+              @pieces[row_index][col_index] = "\u265C"
+            when 'Knight'
+              @pieces[row_index][col_index] = "\u265E"
+            when 'Bishop'
+              @pieces[row_index][col_index] = "\u265D"
+            when 'King'
+              @pieces[row_index][col_index] = "\u265A"
+            when 'Queen'
+              @pieces[row_index][col_index] = "\u265B"
+            end
+          end
+        end
+      end
+    end
   end
 
   private
