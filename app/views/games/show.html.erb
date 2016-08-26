@@ -1,12 +1,14 @@
-<h1> Here's your game </h1>
+<h1> Here's your game</h1>
 <br />
 <h2><%= @game.name %></h2>
 
 <table>
-  <% 8.times do |row| %>
+  <% 8.times.with_index do |row, row_index| %>
     <tr>
-      <% 8.times do |col| %>
-      <td></td>
+      <% 8.times.with_index do |col, col_index| %>
+        <td>
+          <%= @pieces[col_index][row_index] %>
+        </td>
       <% end %>
     </tr>
   <% end %>
