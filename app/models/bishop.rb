@@ -1,3 +1,4 @@
+# Bishop model inheriting from Piece
 class Bishop < Piece
   def valid_move?(future_x, future_y)
     !obstructed?(future_x, future_y) && valid_bishop_range?(future_x, future_y)
