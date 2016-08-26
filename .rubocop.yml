@@ -5,6 +5,7 @@ AllCops:
     - 'Rakefile'
     - 'spec/spec_helper.rb'
     - 'vendor/**/*'
+    - 'app/controllers/games_controller.rb'
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
