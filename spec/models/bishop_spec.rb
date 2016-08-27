@@ -7,7 +7,7 @@ RSpec.describe Bishop, type: :pieces do
         x_coordinate: 3,
         y_coordinate: 3
       )
-      expect(bishop.valid_move?(4, 4)).to eq true
+      expect(bishop.valid_move?(6, 6)).to eq true
     end
   end
 end

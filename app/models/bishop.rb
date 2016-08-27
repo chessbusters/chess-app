@@ -18,6 +18,6 @@ class Bishop < Piece
   end
 
   def move_diag?(x_diff, y_diff)
-    return true if x_diff == 1 && y_diff == 1
+    return true if x_diff.nonzero? && y_diff.nonzero? && x_diff == y_diff
   end
 end
