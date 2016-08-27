@@ -1,3 +1,19 @@
+<script>
+  $(function() {
+    $(".piecesholder").draggable({
+    });
+    $(".piecesdest").droppable({
+      // tolerance: 'fit',
+            drop: function( event, ui ) {
+            $( this )
+            .addClass( "highlight" )
+            // .find( "p" )
+            .html( "Hi!" );
+      }
+    });
+  });
+</script>
+
 <h1> Here's your game</h1>
 <br />
 <h2><%= @game.name %></h2>
@@ -6,11 +22,12 @@
   <% 8.times.with_index do |row, row_index| %>
     <tr>
       <% 8.times.with_index do |col, col_index| %>
-        <td>
+        <td class="piecesdest">
           <% if @game.pieces.where(x_coordinate: col_index,\
                             y_coordinate: row_index).first.nil? == false %>
-            <%=link_to @pieces[col_index][row_index], game_piece_path(@game, @game.pieces.where(x_coordinate: col_index, \
-            y_coordinate: row_index).first.id)%>
+            <div class="piecesholder">
+              <%=@pieces[col_index][row_index]%>
+            </div>
           <% end %>
         </td>
       <% end %>
