@@ -1,0 +1,28 @@
+<h1> Move this piece to where? </h1>
+<br />
+
+<table>
+  <% 8.times.with_index do |row, row_index| %>
+    <tr>
+      <% 8.times.with_index do |col, col_index| %>
+        <% if @game.pieces.where(x_coordinate: col_index,\
+                            y_coordinate: row_index).first == @piece %>
+          <td id = 'selected'>
+            <%= @board[col_index][row_index] %>
+          </td>
+        <% else %>
+          <td>
+              <% if @game.pieces.where(x_coordinate: col_index,\
+              y_coordinate: row_index).first.nil? == false%>
+                <%= link_to @board[col_index][row_index], \
+                game_piece_path(@game, @piece, x_coordinate: col_index, y_coordinate: row_index), method: :put %>
+              <% else %>
+                <%= link_to 'O', \
+                game_piece_path(@game, @piece, x_coordinate: col_index, y_coordinate: row_index), method: :put %>
+              <% end %>
+          </td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
