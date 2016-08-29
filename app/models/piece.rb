@@ -43,6 +43,12 @@ class Piece < ActiveRecord::Base
     end
   end
 
+  def find_diffs(future_x, future_y)
+    x_diff = x_coordinate - future_x
+    y_diff = y_coordinate - future_y
+    [x_diff, y_diff]
+  end
+
   private
 
   # Determines if a move is not horizontal, vertical, or properly diagonal.
@@ -68,12 +74,6 @@ class Piece < ActiveRecord::Base
     else
       (current_coord + 1...future_coord).to_a
     end
-  end
-
-  def find_diffs(future_x, future_y)
-    x_diff = x_coordinate - future_x
-    y_diff = y_coordinate - future_y
-    [x_diff, y_diff]
   end
 
   # Check for diagonal obstructions
