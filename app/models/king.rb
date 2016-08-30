@@ -13,6 +13,19 @@ class King < Piece
     false
   end
 
+  def move_to!(new_x, new_y)
+    potential_piece = game.pieces.find_by(x_coordinate: new_x, y_coordinate: new_y)
+    if potential_piece.nil? && valid_move?(new_x, new_y)
+      cancel_castling
+      return update_attributes(x_coordinate: new_x, \
+                             y_coordinate: new_y)
+    end
+    return raise 'Illegal move.' if color == piece.color
+    cancel_castling
+    potential_piece.destroy
+    update_attributes(x_coordinate: new_x, y_coordinate: new_y)
+  end
+
   private
 
   def find_diffs(future_x, future_y)
@@ -31,5 +44,9 @@ class King < Piece
 
   def move_diag?(x_diff, y_diff)
     return true if x_diff == 1 && y_diff == 1
+  end
+
+  def cancel_castling
+    color == "white" ? game.white_castling = false : game.black_castling = false
   end
 end

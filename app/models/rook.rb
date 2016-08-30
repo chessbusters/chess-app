@@ -11,6 +11,12 @@ class Rook < Piece
     false
   end
 
+  def can_castle?(rook_position)
+    return true if queenside?
+    return true if kingside?
+    false
+  end
+
   private
 
   def find_diffs(future_x, future_y)
@@ -26,4 +32,10 @@ class Rook < Piece
   def move_vert?(x_diff, y_diff)
     return true if x_diff.zero? && y_diff.nonzero?
   end
+
+  def queenside?
+    if color == 'black'
+    end
+  end
+
 end
