@@ -21,11 +21,9 @@ class Game < ActiveRecord::Base
     king = King.where(game: self, color: color).first
     opposing_pieces = Piece.where(game: self).where.not(color: color)
     opposing_pieces.each do |piece|
-      if piece.valid_move?(king.x_coordinate, king.y_coordinate)
-        return true
-      end
+      return true if piece.valid_move?(king.x_coordinate, king.y_coordinate)
     end
-    return false
+    false
   end
 
   def create_king
