@@ -17,6 +17,17 @@ class Game < ActiveRecord::Base
     create_black_pawn
   end
 
+  def check?(color)
+    king = King.where(game: self, color: color).first
+    opposing_pieces = Piece.where(game: self).where.not(color: color)
+    opposing_pieces.each do |piece|
+      if piece.valid_move?(king.x_coordinate, king.y_coordinate)
+        return true
+      end
+    end
+    return false
+  end
+
   def create_king
     King.create(game: self, color: 'white', x_coordinate: 3, y_coordinate: 0)
     King.create(game: self, color: 'black', x_coordinate: 3, y_coordinate: 7)
