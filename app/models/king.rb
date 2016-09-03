@@ -14,13 +14,13 @@ class King < Piece
   end
 
   def move_to!(new_x, new_y)
-    potential_piece = game.pieces.find_by(x_coordinate: new_x, y_coordinate: new_y)
-    if potential_piece.nil? && valid_move?(new_x, new_y)
+    potential_move = game.pieces.find_by(x_coordinate: new_x, y_coordinate: new_y)
+    if potential_move.nil? 
       cancel_castling
       return update_attributes(x_coordinate: new_x, \
                              y_coordinate: new_y)
     end
-    return raise 'Illegal move.' if color == piece.color
+    return raise 'Illegal move.' if color == potential_move.color
     cancel_castling
     potential_piece.destroy
     update_attributes(x_coordinate: new_x, y_coordinate: new_y)
@@ -47,6 +47,6 @@ class King < Piece
   end
 
   def cancel_castling
-    color == "white" ? game.white_castling = false : game.black_castling = false
+    color == "white" ? game.update_attributes(white_castling: true) : game.black_castling = true
   end
 end

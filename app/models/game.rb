@@ -70,39 +70,42 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def white_king_side
+  def white_king_side(color, side)
     if valid_castling_move?("white", "king_side")
+      king = game.pieces.where(color: 'white', x_coordinate: 4, y_coordinate: 0)
+      rook = game.pieces.where(color: 'white', x_coordinate: 7, y_coordinate: 0)
+      return king.update_attributes(x_coordinate: 6, y_coordinate: 0) && rook.update_attributes(x_coordinate: 5, y_coordinate: 0)
     end
   end
 
-  def black_king_side
+  def black_king_side(color, side)
     if valid_castling_move?("black", "king_side")
     end
   end
 
-  def white_queen_side
+  def white_queen_side(color, side)
     if valid_castling_move?("white", "queen_side")
     end
   end
 
-  def black_queen_side
+  def black_queen_side(color, side)
     if valid_castling_move?("black", "queen_side")
+
     end
   end
 
-  private 
 
   def valid_castling_move?(color, side)
     if color == "white" 
      y_coordinate = 0 
-     valid_castling = game.white_castling
+     valid_castling = self.white_castling
     else
       y_coordinate = 7
-    valid_castling = game.black_castling
+    valid_castling = self.black_castling
     end
-    new_x = side == "king_side" ? 6 : 1
-    king = game.pieces.where(x_coordinate: 4, y_coordinate: y_coordinate)
-    return false if king.obstructed?(new_x, y_coordinate) && !valid_castling
+    new_x = (side == "king_side" ? 6 : 2) 
+    king = self.pieces.find_by(type: :king, x_coordinate: 4, y_coordinate: y_coordinate)
+    return false if valid_castling == true
     true
   end
 end
