@@ -95,21 +95,24 @@ class Game < ActiveRecord::Base
   end
 
   def valid_castling_move?(color, side)
-    if color == "white" 
-      y_coordinate = 0 
-    else
-      y_coordinate = 7
-    end
+    color == "white" ? y_coordinate = 0 : y_coordinate = 7
     new_x = (side == "king_side" ? 6 : 2) 
     king = pieces.where(game: self, color: color, type: "King").first
-    print king.inspect
+    puts king.inspect
     return where_is_king(king, color) == "true" ? false : true
     true
   end
 
   def where_is_king(king, color)
-   king.x_coordinate != 3 && king.y_coordinate != (1 || 6) \
-   && color == "white" ? white_castling = "true" : black_castling = "true"
+   if king.x_coordinate != 3 && king.y_coordinate != 0  \
+   && color == "white" 
+    self.white_castling = "true" 
+   elsif king.x_coordinate != 3 && king.y_coordinate != 6  \
+   && color == "black" 
+    self.black_castling = "true"
+   else
+    return
+  end
   end
 
 end
