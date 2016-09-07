@@ -19,15 +19,6 @@ class Piece < ActiveRecord::Base
     self.y_coordinate = y_coordinate
   end
 
-  def move_to!(new_x, new_y)
-    piece = game.pieces.find_by(x_coordinate: new_x, y_coordinate: new_y)
-    return update_attributes(x_coordinate: new_x, \
-                             y_coordinate: new_y) if piece.nil?
-    return raise 'Illegal move.' if color == piece.color
-    piece.destroy
-    update_attributes(x_coordinate: new_x, y_coordinate: new_y)
-  end
-
   # Checks whether or not a piece is obstructed from reaching a location by
   # another piece. Returns an error if a piece attempts to move irregularly.
   def obstructed?(future_x, future_y)

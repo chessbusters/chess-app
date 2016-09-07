@@ -25,5 +25,12 @@ RSpec.describe King, type: :pieces do
       )
       expect(king.valid_move?(3, 2)).to eq true
     end
+
+      it 'should not castling' do
+      game = Game.create(name: "hey")
+      white_king = King.where(game: game, color: 'white', x_coordinate: 3).first
+      white_king.move_to!(5, 4)
+      expect(game.valid_castling_move?("white", "king_side")).to eq false
+    end
   end
 end
