@@ -65,7 +65,7 @@ end
 # gem 'capistrano', group: :development
 
 # Use debugger
-gem 'debugger', group: [:development, :test]
+# gem 'debugger', group: [:development, :test]
 
 # Using rspec for dev testing
 # Adding FactoryGirl for dummy test data.
