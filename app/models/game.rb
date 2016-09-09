@@ -70,49 +70,50 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def white_king_side(color, side)
-    if valid_castling_move?("white", "king_side")
+  def white_king_side(_color, _side)
+    if valid_castling_move?('white', 'king_side')
       king = game.pieces.where(color: 'white', x_coordinate: 4, y_coordinate: 0).first
       rook = game.pieces.where(color: 'white', x_coordinate: 7, y_coordinate: 0).first
       return king.update_attributes(x_coordinate: 6, y_coordinate: 0) && rook.update_attributes(x_coordinate: 5, y_coordinate: 0)
     end
   end
 
-  def black_king_side(color, side)
-    if valid_castling_move?("black", "king_side")
+  def black_king_side(_color, _side)
+    if valid_castling_move?('black', 'king_side')
     end
   end
 
-  def white_queen_side(color, side)
-    if valid_castling_move?("white", "queen_side")
+  def white_queen_side(_color, _side)
+    if valid_castling_move?('white', 'queen_side')
     end
   end
 
-  def black_queen_side(color, side)
-    if valid_castling_move?("black", "queen_side")
+  def black_queen_side(_color, _side)
+    if valid_castling_move?('black', 'queen_side')
 
     end
   end
 
+# Validate castling
   def valid_castling_move?(color, side)
-    color == "white" ? y_coordinate = 0 : y_coordinate = 7
-    new_x = (side == "king_side" ? 6 : 2) 
-    king = pieces.where(game: self, color: color, type: "King").first
+    y_coordinate = color == 'white' ? 0 : 7
+    new_x = (side == 'king_side' ? 6 : 2)
+    king = pieces.where(game: self, color: color, type: 'King').first
     puts king.inspect
-    return where_is_king(king, color) == "true" ? false : true
+    return where_is_king(king, color) == true ? false : true
     true
   end
 
+# Determines if the king has moved
   def where_is_king(king, color)
-   if king.x_coordinate != 3 && king.y_coordinate != 0  \
-   && color == "white" 
-    self.white_castling = "true" 
-   elsif king.x_coordinate != 3 && king.y_coordinate != 6  \
-   && color == "black" 
-    self.black_castling = "true"
-   else
-    return
+    if king.x_coordinate != 3 && king.y_coordinate.nonzero?  \
+    && color == 'white'
+      self.white_castling = true
+    elsif king.x_coordinate != 3 && king.y_coordinate != 6  \
+    && color == 'black'
+      self.black_castling = true
+    else
+      return
+   end
   end
-  end
-
 end

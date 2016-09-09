@@ -6,6 +6,5 @@ RSpec.describe Game, type: :model do
       game = Game.create
       expect(game.pieces.count).to eq 32
     end
-
   end
 end

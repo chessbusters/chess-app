@@ -1,6 +1,5 @@
 # King model inheriting from Piece
 class King < Piece
-
   def valid_move?(future_x, future_y)
     !obstructed?(future_x, future_y) && valid_king_range?(future_x, future_y)
   end
@@ -17,7 +16,7 @@ class King < Piece
   def move_to!(new_x, new_y)
     potential_move = game.pieces.find_by(x_coordinate: new_x, y_coordinate: new_y)
     return raise 'Illegal move.' if !potential_move.nil? && color == potential_move.color
-    potential_piece.destroy if !potential_move.nil?
+    potential_piece.destroy unless potential_move.nil?
     update_attributes(x_coordinate: new_x, y_coordinate: new_y)
   end
 
@@ -40,5 +39,4 @@ class King < Piece
   def move_diag?(x_diff, y_diff)
     return true if x_diff == 1 && y_diff == 1
   end
-
 end

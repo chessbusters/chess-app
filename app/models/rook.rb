@@ -11,7 +11,7 @@ class Rook < Piece
     false
   end
 
-  def can_castle?(rook_position)
+  def can_castle?(_rook_position)
     return true if queenside?
     return true if kingside?
     false
@@ -37,5 +37,4 @@ class Rook < Piece
     if color == 'black'
     end
   end
-
 end

@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20160830015003) do
     t.integer  "black_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "white_castling"
-    t.string   "black_castling"
+    t.boolean  "white_castling", default: false
+    t.boolean  "black_castling", default: false
   end
 
   create_table "pieces", force: true do |t|
