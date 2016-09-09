@@ -40,6 +40,13 @@ class Piece < ActiveRecord::Base
     [x_diff, y_diff]
   end
 
+  def move_to!(new_x, new_y)
+    potential_move = game.pieces.find_by(x_coordinate: new_x, y_coordinate: new_y)
+    return raise 'Illegal move.' if !potential_move.nil? && color == potential_move.color
+    potential_piece.destroy unless potential_move.nil?
+    update_attributes(x_coordinate: new_x, y_coordinate: new_y)
+  end
+
   private
 
   # Determines if a move is not horizontal, vertical, or properly diagonal.

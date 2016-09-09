@@ -1,5 +1,6 @@
 # Knight model inheriting from Piece
 class Knight < Piece
+
   def valid_move?(future_x, future_y)
     x_diff, y_diff = find_diffs(future_x, future_y)
     return true if x_diff == 2 && y_diff == 1

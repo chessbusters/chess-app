@@ -103,26 +103,28 @@ class Game < ActiveRecord::Base
     end
   end
 
-# Validate castling
+  # Validate castling
   def valid_castling_move?(color, side)
-    y_coordinate = color == 'white' ? 0 : 7
-    new_x = (side == 'king_side' ? 6 : 2)
+    new_y = color == 'white' ? 0 : 7
+    new_x = side == 'king_side' ? 1 : 5
     king = pieces.where(game: self, color: color, type: 'King').first
-    puts king.inspect
-    return where_is_king(king, color) == true ? false : true
-    true
+    return true if !where_is_king?(king, color) && !king.obstructed?(new_x, new_y)
+    puts self.inspect
+    false
   end
 
-# Determines if the king has moved
-  def where_is_king(king, color)
+  # Determines if the king has moved
+  def where_is_king?(king, color)
     if king.x_coordinate != 3 && king.y_coordinate.nonzero?  \
     && color == 'white'
-      self.white_castling = true
+      self.update_attributes(white_castling: true)
+      true
     elsif king.x_coordinate != 3 && king.y_coordinate != 6  \
     && color == 'black'
-      self.black_castling = true
+      self.update_attributes(black_castling: true)
+      true
     else
-      return
+      return false
    end
   end
 end
