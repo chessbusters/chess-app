@@ -43,7 +43,7 @@ class Piece < ActiveRecord::Base
   def move_to!(new_x, new_y)
     potential_move = game.pieces.find_by(x_coordinate: new_x, y_coordinate: new_y)
     return raise 'Illegal move.' if !potential_move.nil? && color == potential_move.color
-    potential_piece.destroy unless potential_move.nil?
+    potential_move.destroy unless potential_move.nil?
     update_attributes(x_coordinate: new_x, y_coordinate: new_y)
   end
 

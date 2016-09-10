@@ -81,36 +81,17 @@ class Game < ActiveRecord::Base
 
   ########### CASTLING METHODS
 
-  def white_king_side(_color, _side)
-    if valid_castling_move?('white', 'king_side')
-      king = game.pieces.where(color: 'white', x_coordinate: 4, y_coordinate: 0).first
-      rook = game.pieces.where(color: 'white', x_coordinate: 7, y_coordinate: 0).first
-      return king.update_attributes(x_coordinate: 6, y_coordinate: 0) \
-      && rook.update_attributes(x_coordinate: 5, y_coordinate: 0)
-    end
-  end
-
-  def black_king_side(_color, _side)
-    if valid_castling_move?('black', 'king_side')
-    end
-  end
-
-  def white_queen_side(_color, _side)
-    if valid_castling_move?('white', 'queen_side')
-    end
-  end
-
-  def black_queen_side(_color, _side)
-    if valid_castling_move?('black', 'queen_side')
-
-    end
+  def castle(color, side)
+    rook, king = select_rook_and_king(color, side)
+    new_y, new_rook_x, new_king_x = new_positions(color, side)
+      king.update_attributes(x_coordinate: new_king_x, y_coordinate: new_y)
+      rook.update_attributes(x_coordinate: new_rook_x, y_coordinate: new_y)
   end
 
   # Validate castling
   def valid_castling_move?(color, side)
     new_y, new_rook_x, new_king_x = new_positions(color, side)
-    rook = which_rook(color, side)
-    king = pieces.where(game: self, color: color, type: 'King').first
+    rook, king = select_rook_and_king(color, side)
     return true if !king_not_moved?(king, color) && !king.obstructed?(new_king_x, new_y) \
     && !rook.obstructed?(new_rook_x, new_y)
     false
@@ -146,5 +127,12 @@ class Game < ActiveRecord::Base
     else
       return pieces.where(game: self, color: color, type: 'Rook', x_coordinate: 7).first
     end
+  end
+
+  # Set variables pointing at both pieces
+  def select_rook_and_king(color, side)
+    rook = which_rook(color, side)
+    king = pieces.find_by(game: self, color: color, type: 'King')
+    [rook, king]
   end
 end
