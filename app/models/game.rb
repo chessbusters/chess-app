@@ -79,11 +79,14 @@ class Game < ActiveRecord::Base
     end
   end
 
+  ########### CASTLING METHODS
+
   def white_king_side(_color, _side)
     if valid_castling_move?('white', 'king_side')
       king = game.pieces.where(color: 'white', x_coordinate: 4, y_coordinate: 0).first
       rook = game.pieces.where(color: 'white', x_coordinate: 7, y_coordinate: 0).first
-      return king.update_attributes(x_coordinate: 6, y_coordinate: 0) && rook.update_attributes(x_coordinate: 5, y_coordinate: 0)
+      return king.update_attributes(x_coordinate: 6, y_coordinate: 0) \
+      && rook.update_attributes(x_coordinate: 5, y_coordinate: 0)
     end
   end
 
@@ -105,26 +108,43 @@ class Game < ActiveRecord::Base
 
   # Validate castling
   def valid_castling_move?(color, side)
-    new_y = color == 'white' ? 0 : 7
-    new_x = side == 'king_side' ? 1 : 5
+    new_y, new_rook_x, new_king_x = new_positions(color, side)
+    rook = which_rook(color, side)
     king = pieces.where(game: self, color: color, type: 'King').first
-    return true if !where_is_king?(king, color) && !king.obstructed?(new_x, new_y)
-    puts self.inspect
+    return true if !king_not_moved?(king, color) && !king.obstructed?(new_king_x, new_y) \
+    && !rook.obstructed?(new_rook_x, new_y)
     false
   end
 
   # Determines if the king has moved
-  def where_is_king?(king, color)
+  def king_not_moved?(king, color)
     if king.x_coordinate != 3 && king.y_coordinate.nonzero?  \
     && color == 'white'
-      self.update_attributes(white_castling: true)
+      update_attributes(white_castling: true)
       true
-    elsif king.x_coordinate != 3 && king.y_coordinate != 6  \
+    elsif king.x_coordinate != 3 && king.y_coordinate != 7  \
     && color == 'black'
-      self.update_attributes(black_castling: true)
+      update_attributes(black_castling: true)
       true
     else
       return false
    end
+  end
+
+  # set the new positions for king and rook after castling complete
+  def new_positions(color, side)
+    new_y = color == 'white' ? 0 : 7
+    new_rook_x = side == 'king_side' ? 2 : 4
+    new_king_x = side == 'king_side' ? 1 : 5
+    [new_y, new_rook_x, new_king_x]
+  end
+
+  # Select the right rook for castling
+  def which_rook(color, side)
+    if side == 'king_side'
+      return pieces.where(game: self, color: color, type: 'Rook', x_coordinate: 0).first
+    else
+      return pieces.where(game: self, color: color, type: 'Rook', x_coordinate: 7).first
+    end
   end
 end
