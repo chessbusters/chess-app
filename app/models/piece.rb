@@ -47,6 +47,14 @@ class Piece < ActiveRecord::Base
     update_attributes(x_coordinate: new_x, y_coordinate: new_y)
   end
 
+# set the new positions for king and rook after castling complete
+  def new_positions(color, side)
+    new_y = color == 'white' ? 0 : 7
+    new_rook_x = side == 'king_side' ? 2 : 4
+    new_king_x = side == 'king_side' ? 1 : 5
+    [new_y, new_rook_x, new_king_x]
+  end
+
   private
 
   # Determines if a move is not horizontal, vertical, or properly diagonal.

@@ -18,6 +18,13 @@ class Rook < Piece
     false
   end
 
+  def castle!(color, side)
+    new_y, new_rook_x, new_king_x = new_positions(color, side)
+    if game.valid_castling_move?(color, side)
+    update_attributes(x_coordinate: new_rook_x, y_coordinate: new_y)
+    end
+  end
+
   private
 
   def find_diffs(future_x, future_y)
@@ -32,10 +39,5 @@ class Rook < Piece
 
   def move_vert?(x_diff, y_diff)
     return true if x_diff.zero? && y_diff.nonzero?
-  end
-
-  def queenside?
-    if color == 'black'
-    end
   end
 end

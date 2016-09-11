@@ -81,7 +81,9 @@ RSpec.describe King, type: :pieces do
       knight = Knight.where(game: game, color: 'white', x_coordinate: 1).first
       knight.move_to!(1, 2)
       bishop.move_to!(0, 2)
-      game.castle('black', 'king_side')
+      king.castle!('white', 'king_side')
+      rook.castle!('white', 'king_side')
+      expect(rook.x_coordinate). to eq 2
       expect(king.x_coordinate). to eq 1
     end
   end

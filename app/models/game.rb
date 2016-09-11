@@ -1,7 +1,7 @@
 # model for games
 class Game < ActiveRecord::Base
   belongs_to :white_user, class_name: 'User', foreign_key: 'white_user_id'
-  has_many :pieces
+  has_many :pieces, :autosave => true
   belongs_to :user
   delegate :bishops, :rooks, :pawns, :kings, :queens, :knights, to: :pieces
 
@@ -80,13 +80,6 @@ class Game < ActiveRecord::Base
   end
 
   ########### CASTLING METHODS
-
-  def castle(color, side)
-    rook, king = select_rook_and_king(color, side)
-    new_y, new_rook_x, new_king_x = new_positions(color, side)
-      king.update_attributes(x_coordinate: new_king_x, y_coordinate: new_y)
-      rook.update_attributes(x_coordinate: new_rook_x, y_coordinate: new_y)
-  end
 
   # Validate castling
   def valid_castling_move?(color, side)
