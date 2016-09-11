@@ -27,7 +27,7 @@ RSpec.describe King, type: :pieces do
     end
   end
 
-  describe "castling valid ?" do
+  describe 'castling valid ?' do
     it 'should not castling if king moved' do
       game = Game.create(name: 'hey')
       king = King.where(game: game, color: 'white', x_coordinate: 3).first
@@ -72,9 +72,9 @@ RSpec.describe King, type: :pieces do
     end
   end
 
-  describe "castling in action" do 
+  describe 'castling in action' do
     it 'should castle from king side color white after validation' do
-      game = Game.create(name: "yay")
+      game = Game.create(name: 'yay')
       king = King.where(game: game, color: 'white', x_coordinate: 3).first
       rook = Rook.where(game: game, color: 'white', x_coordinate: 0).first
       bishop = Bishop.where(game: game, color: 'white', x_coordinate: 2).first

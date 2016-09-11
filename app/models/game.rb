@@ -1,12 +1,14 @@
+# rubocop:disable ClassLength
 # model for games
 class Game < ActiveRecord::Base
   belongs_to :white_user, class_name: 'User', foreign_key: 'white_user_id'
-  has_many :pieces, :autosave => true
+  has_many :pieces, autosave: true
   belongs_to :user
   delegate :bishops, :rooks, :pawns, :kings, :queens, :knights, to: :pieces
 
   after_create :populate_board!
 
+  # rubocop:disable Metrics/MethodLength
   def populate_board!
     create_king
     create_queen
@@ -79,13 +81,16 @@ class Game < ActiveRecord::Base
     end
   end
 
+  # rubocop:disable CyclomaticComplexity, PerceivedComplexity
+
   ########### CASTLING METHODS
 
   # Validate castling
   def valid_castling_move?(color, side)
     new_y, new_rook_x, new_king_x = new_positions(color, side)
     rook, king = select_rook_and_king(color, side)
-    return true if !king_not_moved?(king, color) && !king.obstructed?(new_king_x, new_y) \
+    return true if !king_not_moved?(king, color) && \
+                   !king.obstructed?(new_king_x, new_y) \
     && !rook.obstructed?(new_rook_x, new_y)
     false
   end
@@ -102,7 +107,7 @@ class Game < ActiveRecord::Base
       true
     else
       return false
-   end
+    end
   end
 
   # set the new positions for king and rook after castling complete
@@ -116,16 +121,19 @@ class Game < ActiveRecord::Base
   # Select the right rook for castling
   def which_rook(color, side)
     if side == 'king_side'
-      return pieces.where(game: self, color: color, type: 'Rook', x_coordinate: 0).first
+      return pieces.find_by(game: self, \
+                            color: color, type: 'Rook', x_coordinate: 0)
     else
-      return pieces.where(game: self, color: color, type: 'Rook', x_coordinate: 7).first
+      return pieces.find_by(game: self, \
+                            color: color, type: 'Rook', x_coordinate: 7)
     end
   end
 
   # Set variables pointing at both pieces
   def select_rook_and_king(color, side)
     rook = which_rook(color, side)
-    king = pieces.find_by(game: self, color: color, type: 'King')
+    king = pieces.find_by(game: self, \
+                          color: color, type: 'King')
     [rook, king]
   end
 end

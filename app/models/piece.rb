@@ -41,13 +41,15 @@ class Piece < ActiveRecord::Base
   end
 
   def move_to!(new_x, new_y)
-    potential_move = game.pieces.find_by(x_coordinate: new_x, y_coordinate: new_y)
-    return raise 'Illegal move.' if !potential_move.nil? && color == potential_move.color
+    potential_move = game.pieces.find_by(x_coordinate: new_x, \
+                                         y_coordinate: new_y)
+    return raise 'Illegal move.' if !potential_move.nil? && \
+                                    color == potential_move.color
     potential_move.destroy unless potential_move.nil?
     update_attributes(x_coordinate: new_x, y_coordinate: new_y)
   end
 
-# set the new positions for king and rook after castling complete
+  # set the new positions for king and rook after castling complete
   def new_positions(color, side)
     new_y = color == 'white' ? 0 : 7
     new_rook_x = side == 'king_side' ? 2 : 4
