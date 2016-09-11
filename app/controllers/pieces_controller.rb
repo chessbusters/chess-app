@@ -53,7 +53,8 @@ class PiecesController < ApplicationController
     @piece = Piece.find(params[:id])
     @game = Game.find(params[:game_id])
 
-    if @piece.valid_move?(params[:x_coordinate].to_i, params[:y_coordinate].to_i)
+    if @piece.valid_move?(params[:x_coordinate].to_i, params[:y_coordinate].to_i) \n
+      && check?(@piece.color) == false
       @piece.move_to!(params[:x_coordinate], params[:y_coordinate])
       flash[:notice] = 'Moved'
     else
