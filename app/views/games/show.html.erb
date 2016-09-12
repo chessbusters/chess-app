@@ -1,16 +1,40 @@
+<script>
+  $(function() {
+    $(".pieceDrag").draggable({
+    });
+    $(".pieceDrop").droppable({
+      hoverClass: 'highlight',
+      drop: Drop
+      });
+
+    function Drop(event, ui) {
+      var p_id = $(ui.draggable).attr('id');
+      var col_id = $(this).data('col-id');
+      var row_id = $(this).parent().data('row-id');
+      $.ajax({
+        type: 'PUT',
+        url: $(ui.draggable).data('update-url'),
+        dataType: 'json',
+        data: { piece_id: p_id, x_coordinate: col_id, y_coordinate: row_id }
+        });
+    };
+  });
+</script>
+
 <h1> Here's your game</h1>
 <br />
 <h2><%= @game.name %></h2>
 
 <table>
   <% 8.times.with_index do |row, row_index| %>
-    <tr>
+    <tr data-row-id=<%=row_index%>>
       <% 8.times.with_index do |col, col_index| %>
-        <td>
-          <% if @game.pieces.where(x_coordinate: col_index,\
+        <td class="pieceDrop" data-col-id=<%=col_index%>>
+          <% if @pieces.where(x_coordinate: col_index,\
                             y_coordinate: row_index).first.nil? == false %>
-            <%=link_to @pieces[col_index][row_index], game_piece_path(@game, @game.pieces.where(x_coordinate: col_index, \
-            y_coordinate: row_index).first.id)%>
+            <div class="pieceDrag" id="<%= @pieces.where(x_coordinate: col_index, y_coordinate: row_index).first.id%>" data-game-id=<%=@game.id%> data-update-url="<%= game_path(@game) %>">
+              <%=@board[col_index][row_index]%>
+            </div>
           <% end %>
         </td>
       <% end %>

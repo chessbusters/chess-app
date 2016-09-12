@@ -53,7 +53,8 @@ class PiecesController < ApplicationController
     @piece = Piece.find(params[:id])
     @game = Game.find(params[:game_id])
     @piece.move_to!(params[:x_coordinate], params[:y_coordinate])
-    redirect_to game_path(@game)
+    # redirect_to game_path(@game)
+    render text: 'updated!'
   end
 
   private
