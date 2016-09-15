@@ -26,6 +26,14 @@ class Game < ActiveRecord::Base
     false
   end
 
+  def future_check?(color, future_x, future_y)
+    opposing_pieces = Piece.where(game: self).where.not(color: color)
+    opposing_pieces.each do |piece|
+      return true if piece.valid_move?(future_x, future_y)
+    end
+    false
+  end
+
   def create_king
     King.create(game: self, color: 'white', x_coordinate: 3, y_coordinate: 0)
     King.create(game: self, color: 'black', x_coordinate: 3, y_coordinate: 7)
