@@ -114,18 +114,16 @@ class Game < ActiveRecord::Base
   def new_positions(color, side)
     new_y = color == 'white' ? 0 : 7
     new_rook_x = side == 'king_side' ? 2 : 4
-    new_king_x = side == 'king_side' ? 1 : 5
+    new_king_x = side == 'king_side' ? 1 : 6
     [new_y, new_rook_x, new_king_x]
   end
 
   # Select the right rook for castling
   def which_rook(color, side)
     if side == 'king_side'
-      return pieces.find_by(game: self, \
-                            color: color, type: 'Rook', x_coordinate: 0)
+      return pieces.find_by(color: color, x_coordinate: 0)
     else
-      return pieces.find_by(game: self, \
-                            color: color, type: 'Rook', x_coordinate: 7)
+      return pieces.find_by(color: color, x_coordinate: 7)
     end
   end
 

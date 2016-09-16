@@ -22,9 +22,7 @@ class Rook < Piece
 
   def castle!(color, side)
     new_y, new_rook_x, _new_king_x = new_positions(color, side)
-    if game.valid_castling_move?(color, side)
       update_attributes(x_coordinate: new_rook_x, y_coordinate: new_y)
-    end
   end
 
   private

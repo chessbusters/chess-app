@@ -56,9 +56,9 @@ RSpec.describe King, type: :pieces do
       bishop = Bishop.where(game: game, color: 'black', x_coordinate: 5).first
       knight = Knight.where(game: game, color: 'black', x_coordinate: 6).first
       queen = Queen.where(game: game, color: 'black').first
-      queen.move_to!(4, 4)
+      queen.destroy
       knight.move_to!(6, 5)
-      bishop.move_to!(7, 5)
+      bishop.destroy
       expect(game.valid_castling_move?('black', 'queen_side')).to eq true
     end
 
