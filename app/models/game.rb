@@ -120,11 +120,8 @@ class Game < ActiveRecord::Base
 
   # Select the right rook for castling
   def which_rook(color, side)
-    if side == 'king_side'
-      return pieces.find_by(color: color, x_coordinate: 0)
-    else
-      return pieces.find_by(color: color, x_coordinate: 7)
-    end
+    return pieces.find_by(color: color, x_coordinate: 0) if side == 'king_side'
+    return pieces.find_by(color: color, x_coordinate: 7) if side == 'queen_side'
   end
 
   # Set variables pointing at both pieces

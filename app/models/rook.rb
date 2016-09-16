@@ -22,7 +22,7 @@ class Rook < Piece
 
   def castle!(color, side)
     new_y, new_rook_x, _new_king_x = new_positions(color, side)
-      update_attributes(x_coordinate: new_rook_x, y_coordinate: new_y)
+    update_attributes(x_coordinate: new_rook_x, y_coordinate: new_y)
   end
 
   private

@@ -1,9 +1,9 @@
+# Controller for king
 class KingController < ApplicationController
-
   def update
   end
 
-    private
+  private
 
   helper_method :current_piece
   def current_piece
@@ -17,7 +17,7 @@ class KingController < ApplicationController
 
   def piece_params
     params.permit(:id, :user_id, :game_id, :x_coordinate,
-                                   :y_coordinate, :type, :taken)
+                  :y_coordinate, :type, :taken)
     # params.require(:piece).permit(:id, :user_id, :game_id, :x_coordinate,
     #                               :y_coordinate, :type, :taken)
   end
