@@ -1,7 +1,8 @@
 # King model inheriting from Piece
 class King < Piece
   def valid_move?(future_x, future_y)
-    !obstructed?(future_x, future_y) && valid_king_range?(future_x, future_y) && !future_check?(future_x, future_y)
+    !obstructed?(future_x, future_y) && valid_king_range?(future_x, future_y) &&
+      !future_check?(future_x, future_y)
   end
 
   # Returns true if the king is only moving from one block
@@ -14,7 +15,7 @@ class King < Piece
   end
 
   def future_check?(future_x, future_y)
-    opposing_pieces = Piece.where(game: self).where.not(color: self.color)
+    opposing_pieces = Piece.where(game: self).where.not(color: self)
     opposing_pieces.each do |piece|
       return true if piece.valid_move?(future_x, future_y)
     end
