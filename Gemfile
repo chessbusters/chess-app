@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'firebase'
 # Added Figaro to hide keys
 gem 'figaro'
 

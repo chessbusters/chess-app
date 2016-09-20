@@ -40,6 +40,7 @@ class Piece < ActiveRecord::Base
     [x_diff, y_diff]
   end
 
+
   def move_to!(new_x, new_y)
     potential_move = game.pieces.find_by(x_coordinate: new_x, \
                                          y_coordinate: new_y)
