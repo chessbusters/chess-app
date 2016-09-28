@@ -23,6 +23,8 @@ class GamesController < ApplicationController
   end
 
   def show
+
+
     @game = Game.find(params[:id])
     user_select(@game)
     @pieces = Array.new(8) { Array.new(8) }
@@ -65,6 +67,13 @@ class GamesController < ApplicationController
         end
       end
     end
+  
+    if @game.check?('white')
+      flash[:notice] = "White king is in check"
+    elsif @game.check?('black')
+      flash[:notice] = "Black king is in check"
+    end
+    
   end
 
   def castling_move

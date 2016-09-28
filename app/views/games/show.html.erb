@@ -6,7 +6,7 @@
   <% 8.times.with_index do |row, row_index| %>
     <tr>
       <% 8.times.with_index do |col, col_index| %>
-        <td>
+        <td class="<%= "#{col}x#{row}" %>">
           <% if @game.pieces.where(x_coordinate: col_index,\
                             y_coordinate: row_index).first.nil? == false %>
             <%=link_to @pieces[col_index][row_index], game_piece_path(@game, @game.pieces.where(x_coordinate: col_index, \
