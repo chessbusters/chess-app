@@ -67,10 +67,19 @@ class GamesController < ApplicationController
     end
   end
 
+  def castling_move
+  if current_game.valid_castling_move?(params[:color], params[:side])
+  rook, king = current_game.select_rook_and_king(params[:color], params[:side])
+  king.castle!(params[:color], params[:side]) && rook.castle!(params[:color], params[:side])
+  show
+  render :show
+  end
+end
+
   private
 
   def game_params
-    params.require(:game).permit(:name)
+    params.require(:game).permit(:name, :white_castling, :black_castling)
   end
 
   helper_method :current_game

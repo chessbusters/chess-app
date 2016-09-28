@@ -19,15 +19,6 @@ class Piece < ActiveRecord::Base
     self.y_coordinate = y_coordinate
   end
 
-  def move_to!(new_x, new_y)
-    piece = game.pieces.find_by(x_coordinate: new_x, y_coordinate: new_y)
-    return update_attributes(x_coordinate: new_x, \
-                             y_coordinate: new_y) if piece.nil?
-    return raise 'Illegal move.' if color == piece.color
-    piece.destroy
-    update_attributes(x_coordinate: new_x, y_coordinate: new_y)
-  end
-
   # Checks whether or not a piece is obstructed from reaching a location by
   # another piece. Returns an error if a piece attempts to move irregularly.
   def obstructed?(future_x, future_y)
@@ -47,6 +38,23 @@ class Piece < ActiveRecord::Base
     x_diff = x_coordinate - future_x
     y_diff = y_coordinate - future_y
     [x_diff, y_diff]
+  end
+
+  def move_to!(new_x, new_y)
+    potential_move = game.pieces.find_by(x_coordinate: new_x, \
+                                         y_coordinate: new_y)
+    return raise 'Illegal move.' if !potential_move.nil? && \
+                                    color == potential_move.color
+    potential_move.destroy unless potential_move.nil?
+    update_attributes(x_coordinate: new_x, y_coordinate: new_y)
+  end
+
+  # set the new positions for king and rook after castling complete
+  def new_positions(color, side)
+    new_y = color == 'white' ? 0 : 7
+    new_rook_x = side == 'king_side' ? 2 : 4
+    new_king_x = side == 'king_side' ? 1 : 5
+    [new_y, new_rook_x, new_king_x]
   end
 
   private
