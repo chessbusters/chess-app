@@ -39,7 +39,8 @@ class Piece < ActiveRecord::Base
       check_horizontal(future_x, x_diff)
     elsif direction?(future_x, future_y) == 'vert'
       check_vertical(future_y, y_diff)
-    else false
+    else
+      false
     end
   end
 
