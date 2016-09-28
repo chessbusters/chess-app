@@ -22,12 +22,19 @@ class GamesController < ApplicationController
     end
   end
 
+  def update
+    @piece = Piece.find(params[:piece_id])
+    @piece.move_to!(params[:x_coordinate], params[:y_coordinate])
+    redirect_to game_path(@current_game)
+  end
+
   def show
 
 
     @game = Game.find(params[:id])
+    @pieces = Piece.where(game: @game)
     user_select(@game)
-    @pieces = Array.new(8) { Array.new(8) }
+    @board = Array.new(8) { Array.new(8) }
     8.times.with_index do |_row, row_index|
       8.times.with_index do |_col, col_index|
         piece = Piece.where(game: @game, x_coordinate: row_index,\
@@ -36,32 +43,32 @@ class GamesController < ApplicationController
           if piece.color == 'white'
             case piece.type
             when 'Pawn'
-              @pieces[row_index][col_index] = "\u2659"
+              @board[row_index][col_index] = "\u2659"
             when 'Rook'
-              @pieces[row_index][col_index] = "\u2656"
+              @board[row_index][col_index] = "\u2656"
             when 'Knight'
-              @pieces[row_index][col_index] = "\u2658"
+              @board[row_index][col_index] = "\u2658"
             when 'Bishop'
-              @pieces[row_index][col_index] = "\u2657"
+              @board[row_index][col_index] = "\u2657"
             when 'King'
-              @pieces[row_index][col_index] = "\u2654"
+              @board[row_index][col_index] = "\u2654"
             when 'Queen'
-              @pieces[row_index][col_index] = "\u2655"
+              @board[row_index][col_index] = "\u2655"
             end
           else
             case piece.type
             when 'Pawn'
-              @pieces[row_index][col_index] = "\u265F"
+              @board[row_index][col_index] = "\u265F"
             when 'Rook'
-              @pieces[row_index][col_index] = "\u265C"
+              @board[row_index][col_index] = "\u265C"
             when 'Knight'
-              @pieces[row_index][col_index] = "\u265E"
+              @board[row_index][col_index] = "\u265E"
             when 'Bishop'
-              @pieces[row_index][col_index] = "\u265D"
+              @board[row_index][col_index] = "\u265D"
             when 'King'
-              @pieces[row_index][col_index] = "\u265A"
+              @board[row_index][col_index] = "\u265A"
             when 'Queen'
-              @pieces[row_index][col_index] = "\u265B"
+              @board[row_index][col_index] = "\u265B"
             end
           end
         end

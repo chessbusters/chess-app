@@ -7,6 +7,7 @@ Chessbuster::Application.routes.draw do
   root 'games#index'
 
   resources :tos, only: [:show]
+<<<<<<< HEAD
   resources :games do
     resources :pieces, only: [:show, :update]
     resources :bishops, controller: 'pieces', type: 'Bishop', only: [:show, :update]
@@ -17,6 +18,16 @@ Chessbuster::Application.routes.draw do
     resources :knights, controller: 'pieces', type: 'Knight', only: [:show, :update]
   end
   put 'game/castling_move' => 'games#castling_move'
+=======
+  resources :games
+  resources :pieces, only: [:show, :update]
+  resources :bishops, controller: 'pieces', type: 'Bishop', only: [:show, :update]
+  resources :kings, controller: 'pieces', type: 'King', only: [:show, :update]
+  resources :queens, controller: 'pieces', type: 'Queen', only: [:show, :update]
+  resources :pawns, controller: 'pieces', type: 'Pawn', only: [:show, :update]
+  resources :rooks, controller: 'pieces', type: 'Rook', only: [:show, :update]
+  resources :knights, controller: 'pieces', type: 'Knight', only: [:show, :update]
+>>>>>>> explore-conflict
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
