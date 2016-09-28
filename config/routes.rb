@@ -16,7 +16,6 @@ Chessbuster::Application.routes.draw do
     resources :rooks, controller: 'pieces', type: 'Rook', only: [:show, :update]
     resources :knights, controller: 'pieces', type: 'Knight', only: [:show, :update]
   end
-  put 'game/castling_move' => 'games#castling_move'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

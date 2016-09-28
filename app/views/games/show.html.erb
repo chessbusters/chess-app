@@ -2,12 +2,6 @@
 <br />
 <h2><%= @game.name %></h2>
 
- <!-- value -->
-<pre id="object"></pre> 
-<!--  child  -->
-<ul id="pieces">
-
-</ul>
 <table>
   <% 8.times.with_index do |row, row_index| %>
     <tr>
@@ -22,15 +16,4 @@
       <% end %>
     </tr>
   <% end %>
-  <% if !@game.white_castling && @game.valid_castling_move?('white', 'king_side') %>
-    <%= link_to "Click here to king side white castle", game_castling_move_path(id: @game.id, color: 'white', side: 'king_side'), method: :put %> 
-  <% elsif !@game.white_castling && @game.valid_castling_move?('white', 'queen_side') %>
-    <%= link_to "Click here to queen side white castle", game_castling_move_path(id: @game.id, color: 'white', side: 'queen_side'), method: :put %> 
-    <% end %>
-  <% if !@game.black_castling && @game.valid_castling_move?('black', 'king_side') %>
-    <%= link_to "Click here to king side black castle", game_castling_move_path(id: @game.id, color: 'black', side: 'king_side'), method: :put %> 
-  <% elsif !@game.black_castling && @game.valid_castling_move?('black', 'queen_side') %>
-    <%= link_to "Click here to queen side black castle", game_castling_move_path(id: @game.id, color: 'black', side: 'queen_side'), method: :put %> 
-<% end %>
-
 </table>
