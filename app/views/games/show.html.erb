@@ -1,4 +1,4 @@
-<script>
+ <script>
   $(function() {
     $(".pieceDrag").draggable({
     });
@@ -19,19 +19,18 @@
         });
     };
   });
-</script>
+ </script>
 
 <h1> Here's your game</h1>
 <br />
 <h2><%= @game.name %></h2>
 
-<table>
+<table id="yey">
   <% 8.times.with_index do |row, row_index| %>
     <tr data-row-id=<%=row_index%>>
       <% 8.times.with_index do |col, col_index| %>
-        <td class="<%= "#{col}x#{row}" %>">
-          <% if @game.pieces.where(x_coordinate: col_index,\
-        <td class="pieceDrop" data-col-id=<%=col_index%>>
+<!--         <td class="<%= "#{col}x#{row}" %>"> -->
+        <td class="pieceDrop <%= "#{col}x#{row}" %>" data-col-id=<%=col_index%>>
           <% if @pieces.where(x_coordinate: col_index,\
                             y_coordinate: row_index).first.nil? == false %>
             <div class="pieceDrag" id="<%= @pieces.where(x_coordinate: col_index, y_coordinate: row_index).first.id%>" data-game-id=<%=@game.id%> data-update-url="<%= game_path(@game) %>">
@@ -39,6 +38,7 @@
             </div>
           <% end %>
         </td>
+<!--       </td> -->
       <% end %>
     </tr>
   <% end %>

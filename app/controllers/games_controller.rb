@@ -24,8 +24,13 @@ class GamesController < ApplicationController
 
   def update
     @piece = Piece.find(params[:piece_id])
-    @piece.move_to!(params[:x_coordinate], params[:y_coordinate])
-    redirect_to game_path(@current_game)
+    if @piece.valid_move?(params[:x_coordinate].to_i, params[:y_coordinate].to_i)
+      @piece.move_to!(params[:x_coordinate], params[:y_coordinate])
+      flash[:notice] = 'Moved'
+    else
+      flash[:alert] = 'Invalid Move'
+    end
+    redirect_to game_path(@game)
   end
 
   def show
