@@ -11,15 +11,17 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.create(game_params)
-    if @game.valid?
+    @game = Game.new(game_params)
+     respond_to do |format|
+    if @game.save
       @game.update(white_user_id: current_user[:id])
-      redirect_to game_path(@game),
-                  alert: "Invite your friend !
-                  http://localhost:3030/games/#{@game}"
+      format.html { redirect_to @game, notice: 'Project was successfully created.' }
+
+      format.json { render json: Game.all.order(:name)}
     else
-      render :new, status: :unprocessable_entity
+      format.html {render :new}
     end
+  end
   end
 
   def update
