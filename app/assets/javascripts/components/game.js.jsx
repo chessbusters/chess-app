@@ -1,48 +1,40 @@
 var Game = React.createClass({
 
-   getInitialState: function(){
-    return {
-      games: this.props.game,
-    }
+ renderProjectRows: function(){
+    return(
+      this.props.games.map(function(game){
+        return(
+          <div className="row" style={{marginTop: "20px"}} key={game.id}>
+
+            <div className="col-sm-2">
+              <h2 className="text-center" key={game.id}><a href={"/games/" + game.id}> {game.name} </a></h2>
+            </div>
+
+          </div>
+        )
+      })
+    );
   },
 
-  parentGameSubmit (formData){
+  render: function() {
+    return(
+      <div>
 
-    $.ajax({
-      url: "/games",
-      dataType: 'json',
-      type: 'POST',
-      data: formData,
+        <div className="row" style={{marginTop: "50px"}}>
 
-      success: function(games) {
+          <div className="col-sm-2">
+          </div>
 
-        this.setState({games: games});
+          <div className="col-sm-2" style={{fontWeight: "bold"}}>
+            Name
+          </div>
 
-      }.bind(this),
-
-      error: function(response, status, err) {
-
-        console.log(this.props.url, status, err.toString())
-      }.bind(this)
-
-
-    });
-  },
-
-    render () {
-      return (
-        <div>
-        <h1> Hey everyone </h1>
-        {this.props.game.map(function(game){
-          return(
-            <h2 className="text-center" key={game.id}><a href={"/games/" + game.id}> {game.name} </a></h2>
-            )
-        })}
-
-        <Game games={this.state.games} />
-
-        <GameForm parentGameSubmit={this.parentGameSubmit}/>
         </div>
-      );
-    }
+
+        {this.renderProjectRows()}
+
+      </div>
+    );
+  }
+
 });

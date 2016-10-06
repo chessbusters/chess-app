@@ -11,8 +11,9 @@ var GameForm = React.createClass({
   newGameSubmit: function(e){
     e.preventDefault();
 
-   this.props.parentGameSubmit({game: {name: this.state.name}},
+   this.props.parentGameSubmit({game: {name: this.state.name, white_castling: this.state.white_castling, black_castling: this.state.black_castling}},
     this.resetState);
+   this.setState({name: ''});
   },
 
   handleNameChange: function(e){
@@ -62,6 +63,7 @@ var GameForm = React.createClass({
 
 
             {this.renderGameNameField()}
+            
 
 
             <div className='row'>
