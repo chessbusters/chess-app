@@ -3,15 +3,16 @@ var Game = React.createClass({
  renderProjectRows: function(){
     return(
       this.props.games.map(function(game){
+        if (!game.black_user_id){
         return(
           <div className="row" style={{marginTop: "20px"}} key={game.id}>
 
-            <div className="col-sm-2">
-              <h2 className="text-center" key={game.id}><a href={"/games/" + game.id}> {game.name} </a></h2>
+            <div className="col-sm-12">
+              <h2 className="text-center" key={game.id}><a href={"/games/" + game.id}> {game.name}, waiting for an opponent </a></h2>
             </div>
 
           </div>
-        )
+        )}
       })
     );
   },
