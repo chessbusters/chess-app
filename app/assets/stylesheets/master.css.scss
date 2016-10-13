@@ -21,6 +21,19 @@ tr:nth-child(even) td:nth-child(odd) {
   color: white;
 }
 
+.pieceDrag {
+  color: crimson;
+}
+
+.pieceDrop {
+
+}
+
+.highlight {
+  background: blue !important;
+  color: black;
+}
+
 #selected {
   background: #FF1515;
   color: #fc9b9b;
