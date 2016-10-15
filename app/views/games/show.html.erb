@@ -19,11 +19,40 @@
         });
     };
   });
+
+  Pusher.logToConsole = true;
+
+  $(function() {
+    var pusher = new Pusher('246b2d379d178a631a1f', {
+      encrypted: true
+    });
+
+    var gameId = $('.pusherInfo').data('pusherinfo');
+
+    var channel = pusher.subscribe(gameId);
+    channel.bind('update-piece', function(data) {
+      location.reload(true);
+    });
+
+    pusher.connection.bind('connecting', function() {
+    $('div#status').text('Connecting to Pusher...');
+});
+
+pusher.connection.bind('connected', function() {
+    $('div#status').text('Connected to Pusher!');
+});
+    pusher.connection.bind('failed', function() {
+      $('div#status').text('Connection to Pusher failed :(');
+    });
+    channel.bind('subscription_error', function(status) {
+      $('div#status').text('Pusher subscription_error');
+    });
+  });
  </script>
 
 <h1> Here's your game</h1>
 <br />
-<h2><%= @game.name %></h2>
+<h2 class="pusherInfo" data-pusherinfo=<%= "channel-#{@game.id}" %>><%= @game.name %></h2>
 <table id="yey">
   <% 8.times.with_index do |row, row_index| %>
     <tr data-row-id=<%=row_index%>>

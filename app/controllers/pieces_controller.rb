@@ -58,7 +58,6 @@ class PiecesController < ApplicationController
     else
       flash[:alert] = 'Invalid Move'
     end
-    redirect_to game_path(@game)
   end
 
   private

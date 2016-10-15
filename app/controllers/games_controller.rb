@@ -25,6 +25,7 @@ class GamesController < ApplicationController
   end
 
   def update
+    @game = Game.find(params[:id])
     @piece = Piece.find(params[:piece_id])
     if @piece.valid_move?(params[:x_coordinate].to_i, params[:y_coordinate].to_i)
       @piece.move_to!(params[:x_coordinate], params[:y_coordinate])
@@ -32,7 +33,8 @@ class GamesController < ApplicationController
     else
       flash[:alert] = 'Invalid Move'
     end
-    redirect_to game_path(@game)
+    Pusher.trigger("channel-#{@game.id}", 'update-piece', foo: 'bar')
+    render text: 'updated!'
   end
 
   def show
