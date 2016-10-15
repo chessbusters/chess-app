@@ -29,6 +29,9 @@ gem 'pg'
 # Use 12_factor for Heroku
 gem 'rails_12factor', group: :production
 
+# Use pusher
+gem 'pusher'
+
 #Use React 
 gem 'react-rails'
 
