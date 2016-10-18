@@ -15,16 +15,10 @@ class King < Piece
   end
 
   def future_check?(future_x, future_y)
-    logger.debug "starting future check for #{self.color}"
     opposing_pieces = Piece.where(game: self.game).where.not(color: self.color)
     opposing_pieces.each do |piece|
-      logger.debug "check - about to test #{piece.color} #{piece.type} at #{piece.x_coordinate}, #{piece.y_coordinate}"
-      if piece.valid_move?(future_x, future_y)
-        logger.debug "check - in check"
-        return true
-      end
+      return true if piece.valid_move?(future_x, future_y)
     end
-    logger.debug "check - not in check"
     false
   end
 
