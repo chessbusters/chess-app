@@ -1,5 +1,10 @@
 <script>
   $(function() {
+          init_draggables_and_droppables();
+  });
+
+  function init_draggables_and_droppables() {
+  $(function() {
     $(".pieceDrag").draggable({
     });
     $(".pieceDrop").droppable({
@@ -18,7 +23,7 @@
         dataType: 'json'
         });
     };
-  });
+  })};
 
   Pusher.logToConsole = true;
 
@@ -31,7 +36,9 @@
 
     var channel = pusher.subscribe(gameId);
     channel.bind('update-piece', function(data) {
-      location.reload(true);
+      $("#yey").load(location.href + " #yey", function(){
+        init_draggables_and_droppables();
+        }); 
     });
 
     pusher.connection.bind('connecting', function() {
@@ -53,7 +60,7 @@ pusher.connection.bind('connected', function() {
 <h1> Here's your game</h1>
 <br />
 <h2 class="pusherInfo" data-pusherinfo=<%= "channel-#{@game.id}" %>><%= @game.name %></h2>
-<table id="yey">
+<table id="yey" onshow="init_draggables_and_droppables()">
   <% 8.times.with_index do |row, row_index| %>
     <tr data-row-id=<%=row_index%>>
       <% 8.times.with_index do |col, col_index| %>
