@@ -88,7 +88,7 @@ class Piece < ActiveRecord::Base
   def check_diagonal(future_x, x_diff)
     range = find_range(future_x, x_coordinate, x_diff)
     range.each do |d|    
-      return true if game.pieces.where(x_coordinate: d, y_coordinate: d).exists?
+      return true if game.pieces.where(x_coordinate: d, y_coordinate: d, color: color).exists?
     end
     false
   end
