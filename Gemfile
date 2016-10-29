@@ -32,7 +32,7 @@ gem 'rails_12factor', group: :production
 # Use pusher
 gem 'pusher'
 
-#Use React 
+# Use React
 gem 'react-rails'
 
 # Use SCSS for stylesheets

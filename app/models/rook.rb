@@ -28,8 +28,8 @@ class Rook < Piece
   private
 
   def find_diffs(future_x, future_y)
-    x_diff = future_x - x_coordinate
-    y_diff = future_y - y_coordinate
+    x_diff = x_coordinate - future_x
+    y_diff = y_coordinate - future_y
     [x_diff, y_diff]
   end
 

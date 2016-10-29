@@ -87,7 +87,7 @@ class Piece < ActiveRecord::Base
   # Check for diagonal obstructions
   def check_diagonal(future_x, x_diff)
     range = find_range(future_x, x_coordinate, x_diff)
-    range.each do |d|
+    range.each do |d|    
       return true if game.pieces.where(x_coordinate: d, y_coordinate: d).exists?
     end
     false
@@ -98,7 +98,7 @@ class Piece < ActiveRecord::Base
     range = find_range(future_x, x_coordinate, x_diff)
     range.each do |x|
       return true if \
-      game.pieces.where(x_coordinate: x, y_coordinate: y_coordinate).exists?
+      game.pieces.where(x_coordinate: x, y_coordinate: y_coordinate).exists? 
     end
     false
   end
