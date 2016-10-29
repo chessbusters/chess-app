@@ -16,8 +16,8 @@ class Queen < Piece
   private
 
   def find_diffs(future_x, future_y)
-    x_diff = (x_coordinate - future_x).abs
-    y_diff = (y_coordinate - future_y).abs
+    x_diff = x_coordinate - future_x
+    y_diff = y_coordinate - future_y
     [x_diff, y_diff]
   end
 
@@ -30,6 +30,6 @@ class Queen < Piece
   end
 
   def move_diag?(x_diff, y_diff)
-    return true if x_diff.nonzero? && y_diff.nonzero? && x_diff == y_diff
+    return true if x_diff.nonzero? && y_diff.nonzero? && x_diff.abs == y_diff.abs
   end
 end

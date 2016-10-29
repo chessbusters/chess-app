@@ -6,7 +6,7 @@ class King < Piece
 
   # Returns true if the king is only moving from one block
   def valid_king_range?(future_x, future_y)
-    x_diff_king, y_diff_king = find_diffs_king(future_x, future_y)
+    x_diff_king, y_diff_king = find_diffs(future_x, future_y)
     return true if move_diag?(x_diff_king, y_diff_king)
     return true if move_horiz?(x_diff_king, y_diff_king)
     return true if move_vert?(x_diff_king, y_diff_king)
@@ -20,7 +20,7 @@ class King < Piece
 
   private
 
-  def find_diffs_king(future_x, future_y)
+  def find_diffs(future_x, future_y)
     x_diff_king = (x_coordinate - future_x).abs
     y_diff_king = (y_coordinate - future_y).abs
     [x_diff_king, y_diff_king]

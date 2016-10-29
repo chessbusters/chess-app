@@ -34,11 +34,11 @@ class Piece < ActiveRecord::Base
     end
   end
 
-  def find_diffs(future_x, future_y)
-    x_diff = x_coordinate - future_x
-    y_diff = y_coordinate - future_y
-    [x_diff, y_diff]
-  end
+  # def find_diffs(future_x, future_y)
+  #   x_diff = x_coordinate - future_x
+  #   y_diff = y_coordinate - future_y
+  #   [x_diff, y_diff]
+  # end
 
   def move_to!(new_x, new_y)
     potential_move = game.pieces.find_by(x_coordinate: new_x, \
@@ -62,7 +62,7 @@ class Piece < ActiveRecord::Base
   # Determines if a move is not horizontal, vertical, or properly diagonal.
   def invalid?(future_x, future_y)
     x_diff, y_diff = find_diffs(future_x, future_y)
-    return true if (x_diff != y_diff) && x_diff.nonzero? && y_diff.nonzero?
+    return true if (x_diff.abs != y_diff.abs) && x_diff.nonzero? && y_diff.nonzero?
     false
   end
 
