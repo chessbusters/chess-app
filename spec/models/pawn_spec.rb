@@ -4,8 +4,8 @@ RSpec.describe Pawn, type: :pieces do
   describe 'valid_move?' do
     it 'should return true if the upfront move is valid' do
       game = Game.create
-      pawn = game.pieces.where(color: 'white', type: 'Pawn', x_coordinate: 2).first
-      expect(pawn.valid_move?(2, 3)).to eq true
+      pawn = game.pieces.where(color: 'black', type: 'Pawn', x_coordinate: 2).first
+      expect(pawn.valid_move?(2, 4)).to eq true
     end
 
     # it 'should return true if the pawn can perform a double jump' do
