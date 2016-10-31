@@ -14,40 +14,31 @@ class Pawn < Piece
   private
 
   def find_diffs(future_x, future_y)
-    x_diff = future_x - x_coordinate
-    y_diff = future_y - y_coordinate
+    x_diff = x_coordinate - future_x
+    y_diff = x_coordinate - future_y
     [x_diff, y_diff]
   end
 
   def move_forward?(x_diff, y_diff)
     return true if double_jump_black?(x_diff, y_diff)
     return true if double_jump_white?(x_diff, y_diff)
-    return true if black_forward?(x_diff, y_diff)
-    return true if white_forward?(x_diff, y_diff)
     false
   end
 
   def double_jump_black?(x_diff, y_diff)
-    if color == 'black' && y_coordinate == 6
-      return true if x_diff.zero? && y_diff == -1 || y_diff == -2
+    if color == 'black'
+      return true if x_diff.zero? && y_diff == 1 || y_diff.zero?
     else
       false
     end
   end
 
   def double_jump_white?(x_diff, y_diff)
-    if color == 'white' && y_coordinate == 1
-      return true if x_diff.zero? && y_diff == 1 || y_diff == 2
+    if color == 'white'
+      return true if x_diff.zero? && y_diff == -1 || y_diff.zero?
     else
       false
     end
   end
 
-  def black_forward?(x_diff, y_diff)
-    x_diff.zero? && (y_diff == -1 && color == 'black') ? true : false
-  end
-
-  def white_forward?(x_diff, y_diff)
-    x_diff.zero? && (y_diff == 1 && color == 'white') ? true : false
-  end
 end

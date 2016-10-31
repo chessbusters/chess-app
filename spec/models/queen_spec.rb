@@ -7,7 +7,6 @@ RSpec.describe Queen, type: :pieces do
       queen = game.pieces.where(color: 'white', type: 'Queen').first
       pawn = game.pieces.where(color: 'white', type: 'Pawn', x_coordinate: 3).first
       pawn.destroy
-      puts queen.obstructed?(2, 2)
       expect(queen.valid_move?(2, 2)).to eq true
     end
 
